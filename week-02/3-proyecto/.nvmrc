@@ -1,0 +1,6 @@
+18
+
+
+# Por qué: fija la versión de Node que usa el proyecto para que todos trabajen con la misma.
+#  Para qué: asegurar que nvm use o CI instalen Node 18 y evitar incompatibilidades.
+#  Consecuencia: si no existe, distintos entornos pueden usar versiones distintas y romper #  la app; con .nvmrc se mantiene coherencia.

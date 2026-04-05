@@ -1,0 +1,162 @@
+/* 
+Por qué: define los colores, tipografías y estilos globales para que la app tenga una apariencia coherente.
+Para qué: aplicar un tema renovado a toda la interfaz (fondos, tarjetas, botones, formularios y responsividad).
+Consecuencia: si falta o está desordenado, la UI se verá inconsistente; con este CSS la app luce profesional y usable.
+*/
+
+/* global.css - tema renovado */
+:root{
+  --bg: #071428;            /* fondo principal */
+  --bg-2: #0b1b2b;          /* gradiente secundario */
+  --card: #0f2433;          /* fondo de tarjetas */
+  --muted: #9fb0bf;         /* texto secundario */
+  --accent: #ff6b6b;        /* color principal (coral) */
+  --accent-600: #ff4a4a;    /* hover/acento oscuro */
+  --accent-700: #e04343;
+  --success: #22c55e;       /* verde */
+  --danger: #ff5252;        /* rojo */
+  --text: #e6f3fb;          /* texto principal */
+  --text-strong: #dff6ff;   /* texto destacado */
+  --radius: 12px;
+  --gap: 14px;
+  --max-width: 1100px;
+  --shadow: 0 8px 24px rgba(2,10,20,0.6);
+  --shadow-soft: 0 4px 12px rgba(2,10,20,0.45);
+  --transition: 200ms cubic-bezier(.2,.9,.3,1);
+}
+
+/* reset ligero */
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{
+  margin:0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg,var(--bg), var(--bg-2));
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+  padding:28px;
+}
+
+/* contenedor centrado */
+.container{
+  max-width:var(--max-width);
+  margin:0 auto;
+  padding:18px;
+}
+
+/* tarjetas */
+.card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:var(--radius);
+  padding:18px;
+  box-shadow:var(--shadow);
+  border:1px solid rgba(255,255,255,0.04);
+  color:var(--text);
+}
+
+/* lista y elementos */
+.list{display:flex;flex-direction:column;gap:var(--gap)}
+.item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  padding:14px;
+  border-radius:10px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+  transition:transform var(--transition), background var(--transition), box-shadow var(--transition);
+  box-shadow:var(--shadow-soft);
+  border:1px solid rgba(255,255,255,0.02);
+}
+.item:focus-within,
+.item:hover{
+  transform:translateY(-4px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+  box-shadow:0 12px 30px rgba(2,10,20,0.6);
+}
+
+/* estado inactivo */
+.item.inactive{
+  opacity:0.55;
+  filter:grayscale(10%);
+  background:linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.03));
+}
+
+/* texto y encabezados */
+h3{margin:0 0 6px 0; color:var(--text-strong)}
+p{margin:0}
+.text-muted{color:var(--muted)}
+
+/* botones */
+.btn{
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  padding:8px 14px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:background var(--transition), transform var(--transition), box-shadow var(--transition);
+  font-weight:700;
+  letter-spacing:0.2px;
+  box-shadow:0 6px 18px rgba(255,107,107,0.08);
+}
+.btn:hover{background:var(--accent-600); transform:translateY(-2px); box-shadow:0 10px 24px rgba(224,67,67,0.12)}
+.btn.secondary{
+  background:transparent;
+  color:var(--text);
+  border:1px solid rgba(255,255,255,0.06);
+  font-weight:600;
+}
+.btn.danger{
+  background:var(--danger);
+  color:#fff;
+  box-shadow:0 6px 18px rgba(255,82,82,0.08);
+}
+
+/* formularios */
+.form-row{display:flex;flex-wrap:wrap;gap:12px}
+.input, .select, .textarea{
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.06);
+  color:var(--text);
+  padding:10px 12px;
+  border-radius:8px;
+  min-width:220px;
+  transition:border-color var(--transition), box-shadow var(--transition);
+}
+.input:focus, .select:focus, .textarea:focus{
+  border-color:var(--accent);
+  box-shadow:0 6px 18px rgba(6,182,212,0.06);
+  outline:none;
+}
+.label{font-size:0.9rem;color:var(--muted);margin-bottom:6px}
+
+/* accesibilidad focus */
+:focus{outline:3px solid rgba(255,107,107,0.12); outline-offset:3px}
+button:focus{box-shadow:0 0 0 6px rgba(255,107,107,0.08)}
+
+/* responsive */
+@media (max-width:900px){
+  .container{padding:12px}
+  .item{flex-direction:column;align-items:flex-start}
+  .input{min-width:100%}
+}
+
+/* reduce motion */
+@media (prefers-reduced-motion: reduce){
+  *{transition:none!important; animation:none!important}
+}
+
+/* utilities */
+.row{display:flex;gap:12px;align-items:center}
+.center{display:flex;align-items:center;justify-content:center}
+.badge{
+  background:rgba(255,255,255,0.03);
+  color:var(--text-strong);
+  padding:6px 10px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:0.85rem;
+}
