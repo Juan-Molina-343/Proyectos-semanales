@@ -1,7 +1,6 @@
 // ============================================
-// COMPONENTE: EmptyState
+// COMPONENTE: EmptyState - Dominio Gimnasio
 // ============================================
-// Muestra mensaje cuando no hay elementos
 
 import React from 'react';
 
@@ -11,10 +10,10 @@ interface EmptyStateProps {
 }
 
 /**
- * Estado vacío del catálogo
+ * Estado vacío del catálogo de clases
  */
 export const EmptyState: React.FC<EmptyStateProps> = ({
-  message = 'No se encontraron elementos',
+  message = 'No se encontraron clases disponibles',
   onClearFilters,
 }) => {
   return (
@@ -25,10 +24,8 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
 
       {/* Botón condicional para limpiar filtros */}
       {onClearFilters && (
-        <button
-          onClick={onClearFilters}
-          className="btn-clear">
-          Limpiar filtros
+        <button onClick={onClearFilters} className="btn-clear">
+          🔄 Limpiar filtros
         </button>
       )}
     </div>

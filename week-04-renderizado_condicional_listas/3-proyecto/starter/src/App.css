@@ -1,0 +1,104 @@
+/* Contenedor principal */
+.app {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+/* Header */
+.catalog-header {
+  margin-bottom: 20px;
+  text-align: center; /* título centrado */
+}
+
+/* Barra de búsqueda */
+.search-bar {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Controles (filtros y ordenamiento) */
+.controls {
+  display: flex;
+  justify-content: space-between; /* filtros a la izquierda, ordenamiento a la derecha */
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.filter-panel {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.filter-panel button {
+  padding: 6px 12px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.filter-panel button:hover {
+  background-color: #1976d2;
+}
+
+.sort-selector {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* empuja el ordenamiento a la derecha */
+}
+
+/* Contador de resultados */
+.results-info {
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* Lista de clases en grilla */
+.item-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* Tarjeta individual */
+.item-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #ddd;
+  padding: 15px;
+  background: #fff;
+  border-radius: 6px;
+  min-height: 220px; /* altura mínima uniforme */
+}
+
+/* Acciones dentro de la tarjeta */
+.item-card .actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.item-card button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Botón de ver detalles */
+.item-card button:first-child {
+  background-color: #4caf50;
+  color: white;
+}
+
+/* Botón de eliminar */
+.item-card button:last-child {
+  background-color: #f44336;
+  color: white;
+}

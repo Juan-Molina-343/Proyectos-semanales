@@ -1,7 +1,6 @@
 // ============================================
-// COMPONENTE: SearchBar
+// COMPONENTE: SearchBar - Dominio Gimnasio
 // ============================================
-// Barra de búsqueda en tiempo real
 
 import React from 'react';
 
@@ -12,28 +11,26 @@ interface SearchBarProps {
 }
 
 /**
- * Barra de búsqueda
+ * Barra de búsqueda en tiempo real
  */
 export const SearchBar: React.FC<SearchBarProps> = ({
   value,
   onChange,
-  placeholder = 'Buscar...',
+  placeholder = 'Buscar clases...',
 }) => {
-  // TODO: Implementar el input de búsqueda
-
   return (
     <div className="search-bar">
-      {/* TODO: Input de búsqueda */}
-      {/* <input
+      {/* Input controlado */}
+      <input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         className="search-input"
-      /> */}
+      />
 
-      {/* TODO: Botón para limpiar (condicional) */}
-      {/* {value && (
+      {/* Botón para limpiar búsqueda */}
+      {value && (
         <button
           onClick={() => onChange('')}
           className="clear-button"
@@ -41,9 +38,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         >
           ✕
         </button>
-      )} */}
-
-      <input placeholder={placeholder} />
+      )}
     </div>
   );
 };

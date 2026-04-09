@@ -1,10 +1,9 @@
 // ============================================
-// COMPONENTE: Catalog (Principal)
+// COMPONENTE: Catalog (Principal) - Gimnasio
 // ============================================
-// Orquesta todos los componentes del catálogo
 
 import React, { useState, useMemo } from 'react';
-import { Item, Category, SortOption } from '../types';
+import { GymClass, Category, SortOption } from '../types';
 import { items as initialItems } from '../data/items';
 import { useDebounce } from '../hooks/useDebounce';
 import { SearchBar } from './SearchBar';
@@ -12,84 +11,64 @@ import { FilterPanel } from './FilterPanel';
 import { SortSelector } from './SortSelector';
 import { ItemList } from './ItemList';
 
-/**
- * Componente principal del catálogo
- */
 export const Catalog: React.FC = () => {
-  // ============================================
-  // ESTADOS
-  // ============================================
-
-  // Datos
-  const [items, setItems] = useState<Item[]>(initialItems);
-
-  // Estados de UI
+  const [items, setItems] = useState<GymClass[]>(initialItems);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Estados de filtros
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<Category>('all');
   const [showOnlyAvailable, setShowOnlyAvailable] = useState<boolean>(false);
-  const [sortBy, setSortBy] = useState<SortOption>('name-asc');
+  const [sortBy, setSortBy] = useState<SortOption>('nombre-asc');
 
-  // Debounce para búsqueda
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
-  // ============================================
-  // PROCESAMIENTO DE DATOS
-  // ============================================
-
-  // TODO: Implementar filtrado, búsqueda y ordenamiento con useMemo
   const processedItems = useMemo(() => {
     let result = [...items];
 
-    // TODO: 1. Filtrar por búsqueda
-    // if (debouncedSearchTerm) {
-    //   const term = debouncedSearchTerm.toLowerCase();
-    //   result = result.filter((item) =>
-    //     item.name.toLowerCase().includes(term)
-    //   );
-    // }
+    if (debouncedSearchTerm) {
+      const term = debouncedSearchTerm.toLowerCase();
+      result = result.filter(
+        (item) =>
+          item.nombre.toLowerCase().includes(term) ||
+          item.instructor.toLowerCase().includes(term)
+      );
+    }
 
-    // TODO: 2. Filtrar por categoría
-    // if (selectedCategory !== 'all') {
-    //   result = result.filter((item) => item.category === selectedCategory);
-    // }
+    if (selectedCategory !== 'all') {
+      result = result.filter((item) => item.categoria === selectedCategory);
+    }
 
-    // TODO: 3. Filtrar por disponibilidad
-    // if (showOnlyAvailable) {
-    //   result = result.filter((item) => item.isAvailable);
-    // }
+    if (showOnlyAvailable) {
+      result = result.filter((item) => item.isAvailable);
+    }
 
-    // TODO: 4. Ordenar (sin mutar)
-    // switch (sortBy) {
-    //   case 'name-asc':
-    //     result.sort((a, b) => a.name.localeCompare(b.name));
-    //     break;
-    //   case 'name-desc':
-    //     result.sort((a, b) => b.name.localeCompare(a.name));
-    //     break;
-    //   case 'price-asc':
-    //     result.sort((a, b) => a.price - b.price);
-    //     break;
-    //   case 'price-desc':
-    //     result.sort((a, b) => b.price - a.price);
-    //     break;
-    //   case 'rating':
-    //     result.sort((a, b) => b.rating - a.rating);
-    //     break;
-    // }
+    switch (sortBy) {
+      case 'nombre-asc':
+        result.sort((a, b) => a.nombre.localeCompare(b.nombre));
+        break;
+      case 'nombre-desc':
+        result.sort((a, b) => b.nombre.localeCompare(a.nombre));
+        break;
+      case 'instructor-asc':
+        result.sort((a, b) => a.instructor.localeCompare(b.instructor));
+        break;
+      case 'instructor-desc':
+        result.sort((a, b) => b.instructor.localeCompare(a.instructor));
+        break;
+      case 'cupos-asc':
+        result.sort((a, b) => a.cupos - b.cupos);
+        break;
+      case 'cupos-desc':
+        result.sort((a, b) => b.cupos - a.cupos);
+        break;
+    }
 
     return result;
   }, [items, debouncedSearchTerm, selectedCategory, showOnlyAvailable, sortBy]);
 
-  // ============================================
-  // HANDLERS
-  // ============================================
-
   const handleDelete = (id: number): void => {
-    if (window.confirm('¿Estás seguro de eliminar este elemento?')) {
+    if (window.confirm('¿Estás seguro de eliminar esta clase?')) {
       setItems((prev) => prev.filter((item) => item.id !== id));
     }
   };
@@ -97,7 +76,7 @@ export const Catalog: React.FC = () => {
   const handleView = (id: number): void => {
     const item = items.find((i) => i.id === id);
     if (item) {
-      alert(`Detalles de: ${item.name}`);
+      alert(`Detalles de la clase: ${item.nombre}\nInstructor: ${item.instructor}\nHorario: ${item.horario}`);
     }
   };
 
@@ -105,28 +84,23 @@ export const Catalog: React.FC = () => {
     setSearchTerm('');
     setSelectedCategory('all');
     setShowOnlyAvailable(false);
-    setSortBy('name-asc');
+    setSortBy('nombre-asc');
   };
-
-  // ============================================
-  // RENDER
-  // ============================================
 
   return (
     <div className="catalog">
       <header className="catalog-header">
-        <h1>📦 Mi Catálogo</h1>
-        {/* TODO: Adaptar título a tu dominio */}
+        <h1>🏋️ Catálogo de Clases de Gimnasio</h1>
       </header>
 
-      {/* Barra de búsqueda */}
-      <SearchBar
-        value={searchTerm}
-        onChange={setSearchTerm}
-        placeholder="Buscar elementos..."
-      />
+      <div className="search-bar">
+        <SearchBar
+          value={searchTerm}
+          onChange={setSearchTerm}
+          placeholder="Buscar por nombre o instructor..."
+        />
+      </div>
 
-      {/* Filtros y ordenamiento */}
       <div className="controls">
         <FilterPanel
           selectedCategory={selectedCategory}
@@ -135,20 +109,14 @@ export const Catalog: React.FC = () => {
           onAvailableChange={setShowOnlyAvailable}
           onClearFilters={clearFilters}
         />
-
-        <SortSelector
-          value={sortBy}
-          onChange={setSortBy}
-        />
+        <SortSelector value={sortBy} onChange={setSortBy} />
       </div>
 
-      {/* Contador de resultados */}
-      <p className="results-count">
-        Mostrando {processedItems.length} de {items.length} elementos
+      <p className="results-info">
+        Mostrando {processedItems.length} de {items.length} clases
         {debouncedSearchTerm && ` para "${debouncedSearchTerm}"`}
       </p>
 
-      {/* Lista de elementos */}
       <ItemList
         items={processedItems}
         isLoading={isLoading}

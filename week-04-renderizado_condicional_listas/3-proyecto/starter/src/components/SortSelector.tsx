@@ -1,7 +1,6 @@
 // ============================================
-// COMPONENTE: SortSelector
+// COMPONENTE: SortSelector - Dominio Gimnasio
 // ============================================
-// Selector de criterio de ordenamiento
 
 import React from 'react';
 import { SortOption } from '../types';
@@ -13,18 +12,15 @@ interface SortSelectorProps {
 }
 
 /**
- * Selector de ordenamiento
+ * Selector de ordenamiento de clases
  */
 export const SortSelector: React.FC<SortSelectorProps> = ({
   value,
   onChange,
 }) => {
-  // TODO: Implementar el selector
-
   return (
     <div className="sort-selector">
-      {/* TODO: Label y select */}
-      {/* <label htmlFor="sort">Ordenar por:</label>
+      <label htmlFor="sort">Ordenar por:</label>
       <select
         id="sort"
         value={value}
@@ -35,9 +31,7 @@ export const SortSelector: React.FC<SortSelectorProps> = ({
             {opt.label}
           </option>
         ))}
-      </select> */}
-
-      <p>Implementar selector aquí</p>
+      </select>
     </div>
   );
 };

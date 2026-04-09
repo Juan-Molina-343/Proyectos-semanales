@@ -1,15 +1,14 @@
 // ============================================
-// COMPONENTE: ItemList
+// COMPONENTE: ItemList - Dominio Gimnasio
 // ============================================
-// Renderiza la lista de elementos
 
 import React from 'react';
-import { Item } from '../types';
+import { GymClass } from '../types';
 import { ItemCard } from './ItemCard';
 import { EmptyState } from './EmptyState';
 
 interface ItemListProps {
-  items: Item[];
+  items: GymClass[];
   isLoading?: boolean;
   error?: string | null;
   onDelete?: (id: number) => void;
@@ -17,9 +16,6 @@ interface ItemListProps {
   onClearFilters?: () => void;
 }
 
-/**
- * Lista de elementos del catálogo
- */
 export const ItemList: React.FC<ItemListProps> = ({
   items,
   isLoading = false,
@@ -28,41 +24,32 @@ export const ItemList: React.FC<ItemListProps> = ({
   onView,
   onClearFilters,
 }) => {
-  // TODO: Implementar renderizado condicional
+  if (isLoading) {
+    return <div className="loading">⏳ Cargando clases...</div>;
+  }
 
-  // 1. Si está cargando, mostrar spinner
-  // if (isLoading) {
-  //   return <div className="loading">Cargando...</div>;
-  // }
+  if (error) {
+    return (
+      <div className="error">
+        <p>❌ Error: {error}</p>
+      </div>
+    );
+  }
 
-  // 2. Si hay error, mostrar mensaje de error
-  // if (error) {
-  //   return (
-  //     <div className="error">
-  //       <p>❌ {error}</p>
-  //     </div>
-  //   );
-  // }
+  if (items.length === 0) {
+    return <EmptyState onClearFilters={onClearFilters} />;
+  }
 
-  // 3. Si no hay items, mostrar estado vacío
-  // if (items.length === 0) {
-  //   return <EmptyState onClearFilters={onClearFilters} />;
-  // }
-
-  // 4. Renderizar lista con .map() y keys únicas
   return (
     <div className="item-list">
-      {/* TODO: Implementar el .map() con keys */}
-      {/* {items.map((item) => (
+      {items.map((item) => (
         <ItemCard
-          key={item.id}  // ← Key única basada en id
+          key={item.id}
           item={item}
           onDelete={onDelete}
           onView={onView}
         />
-      ))} */}
-
-      <p>Implementar lista aquí</p>
+      ))}
     </div>
   );
 };
