@@ -24,7 +24,7 @@ Proyecto de la semana 02: sistema CRUD básico implementado con **React + TypeSc
 
 ## Ejecutar rápido (para evaluador)
 
- cd bootcamp/week-02/3-proyecto
+ cd proyectos git/week-02/3-proyecto
   pnpm install --frozen-lockfile
    pnpm run check
     pnpm dev
